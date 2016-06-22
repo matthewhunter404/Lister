@@ -1,10 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/blue"
+    android:theme="@style/AppTheme"
     tools:context="com.example.matt.lister.ListerMain">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:background="@color/blue"
+        app:showAsAction="never"
+    android:theme="@android:style/Theme.Material"/>
 </menu>

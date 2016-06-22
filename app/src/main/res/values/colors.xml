@@ -3,4 +3,21 @@
     <color name="colorPrimary">#306bff</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="grey_700">#646464</color>
+    <color name="grey">#cccccc</color>
+    <color name="black">#000000</color>
+    <color name="light_blue">#ff64c2f4</color>
+    <color name="blue">#ff1ca8f4</color>
+    <color name="dark_blue">#0288D1</color>
+    <color name="red">#FF0000</color>
+    <color name="lightred">#880000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#00FF00</color>
+    <color name="lightgreen">#005500</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="custom_theme_color">#FFFFFF</color>
+    <color name="FadeText1">#666666</color>
+    <color name="FadeText2">#888888</color>
+    <color name="FadeText3">#aaaaaa</color>
+    <color name="FadeText4">#cccccc</color>
 </resources>
