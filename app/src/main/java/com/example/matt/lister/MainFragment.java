@@ -1,6 +1,8 @@
 package com.example.matt.lister;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Created by matt on 2016/05/26.
  */
 public class MainFragment extends Fragment {
     MainListAdapter mMainListAdapter;
+    OnListSelectedListener mListener;
+
     private ListView mListView;
     final int displaySize=5;
     ListItem displayMainList[]= new ListItem[displaySize];
@@ -50,7 +55,13 @@ public class MainFragment extends Fragment {
         mListView = (ListView) rootView.findViewById(R.id.listview_main);
         mListView.setAdapter(mMainListAdapter);
 
-
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String Answer = mMainListAdapter.getItem(position).getItemTitle();
+                mListener.onListSelected(Answer);
+            }
+        });
         return rootView;
     }
     public void setData(String[] pTitles, String[] pDetails) {
@@ -61,4 +72,24 @@ public class MainFragment extends Fragment {
             displayMainList[i].setItemDetails(pDetails[i]);
         }
     }
+
+    public interface OnListSelectedListener {
+        public void onListSelected(String UriPlaceholder);
+    }
+
+    //Then the activity that hosts the fragment implements the OnArticleSelectedListener interface and overrides onArticleSelected()
+    //to notify fragment B of the event from fragment A. To ensure that the host activity implements this interface, fragment A's
+    // onAttach() callback method (which the system calls when adding the fragment to the activity) instantiates an instance of
+    // OnArticleSelectedListener by casting the Activity that is passed into onAttach():
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnListSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnListSelectedListener");
+        }
+    }
+
+
 }

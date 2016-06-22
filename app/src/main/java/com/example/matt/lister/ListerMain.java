@@ -22,12 +22,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ListerMain extends AppCompatActivity {
+public class ListerMain extends AppCompatActivity implements MainFragment.OnListSelectedListener {
+    FragmentManager mfragmentManager = getFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lister_main);
-        FragmentManager fragmentManager = getFragmentManager();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -44,23 +45,13 @@ public class ListerMain extends AppCompatActivity {
 
             // Create a new Fragment to be placed in the activity layout
             MainFragment firstFragment = new MainFragment();
-
             // In case this activity was started with special instructions from an
             // Intent, pass the Intent's extras to the fragment as arguments
             // firstFragment.setArguments(getIntent().getExtras());
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentTransaction fragmentTransaction = mfragmentManager.beginTransaction();
             // Add the fragment to the 'fragment_container' FrameLayout
             fragmentTransaction.add(R.id.fragment_container, firstFragment);
             fragmentTransaction.commit();
-
-//            ListFragment newFragment = new ListFragment();
-//            // Replace whatever is in the fragment_container view with this fragment,
-//// and add the transaction to the back stack
-//            FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
-//            fragmentTransaction2.replace(R.id.fragment_container, newFragment);
-//            fragmentTransaction2.addToBackStack(null);
-//// Commit the transaction
-//            fragmentTransaction2.commit();
         }
 
 
@@ -88,5 +79,26 @@ public class ListerMain extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    // implementation of MyFragment.Listener interface
 
+    public void onListSelected(String UriPlaceholder) {
+        ListFragment newFragment = new ListFragment();
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        FragmentTransaction fragmentTransaction2 = mfragmentManager.beginTransaction();
+        fragmentTransaction2.replace(R.id.fragment_container, newFragment);
+        fragmentTransaction2.addToBackStack(null);
+        // Commit the transaction
+        fragmentTransaction2.commit();
+
+    }
+//This overrides the back button functionality on android that normally ignores fragments
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0 ){
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
