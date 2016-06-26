@@ -10,14 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
  * Created by matt on 2016/05/26.
  */
 public class MainFragment extends Fragment {
-    MainListAdapter mMainListAdapter;
-    OnListSelectedListener mListener;
+    private MainListAdapter mMainListAdapter;
+    private OnListSelectedListener mListener;
 
     private ListView mListView;
     final int displaySize=5;
@@ -58,8 +59,9 @@ public class MainFragment extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String Answer = mMainListAdapter.getItem(position).getItemTitle();
-                mListener.onListSelected(Answer);
+                //String Answer = mMainListAdapter.getItem(position).getItemTitle();
+                mListener.onListSelected(mMainListAdapter.getItem(position));
+
             }
         });
         return rootView;
@@ -74,7 +76,7 @@ public class MainFragment extends Fragment {
     }
 
     public interface OnListSelectedListener {
-        public void onListSelected(String UriPlaceholder);
+        public void onListSelected(ListItem UriPlaceholder);
     }
 
     //Then the activity that hosts the fragment implements the OnArticleSelectedListener interface and overrides onArticleSelected()

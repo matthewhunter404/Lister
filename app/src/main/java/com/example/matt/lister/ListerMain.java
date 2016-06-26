@@ -1,5 +1,6 @@
 package com.example.matt.lister;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -81,13 +82,19 @@ public class ListerMain extends AppCompatActivity implements MainFragment.OnList
     }
     // implementation of MyFragment.Listener interface
 
-    public void onListSelected(String UriPlaceholder) {
-        ListFragment newFragment = new ListFragment();
+    public void onListSelected(ListItem UriPlaceholder) {
+        //ListFragment newFragment = new ListFragment();
+        Fragment newFragment = ListFragment.newInstance(UriPlaceholder);
+        Bundle bundle = new Bundle();
+        //bundle.putString("UriPlaceholder", UriPlaceholder);
+        bundle.putSerializable("UriPlaceholder", UriPlaceholder);
+        newFragment.setArguments(bundle);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
         FragmentTransaction fragmentTransaction2 = mfragmentManager.beginTransaction();
         fragmentTransaction2.replace(R.id.fragment_container, newFragment);
         fragmentTransaction2.addToBackStack(null);
+
         // Commit the transaction
         fragmentTransaction2.commit();
 

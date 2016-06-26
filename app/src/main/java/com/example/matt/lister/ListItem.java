@@ -1,11 +1,12 @@
 package com.example.matt.lister;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  * Created by matt on 2016/06/07.
  */
-public class ListItem {
+public class ListItem implements Serializable {
     private String ItemTitle;
     private String ItemDetails;
     private Vector<String> ItemDetailsVector=  new Vector<String>();
@@ -53,6 +54,10 @@ public class ListItem {
         public String getItemDetails(){
             return ItemDetails;
         }
+
+    public Vector<String>  getItemDetailsVector(){
+        return ItemDetailsVector;
+    }
         public String getItemDetailLine(int index)
         {
             return ItemDetailLines[index];

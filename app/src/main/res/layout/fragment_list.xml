@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.android.sunshine.app.ForecastFragment">
     <TextView
-        android:id="@+id/ItemTitle"
+        android:id="@+id/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/grey_700"
         android:textSize="24sp"
- />
-</FrameLayout>
+    />
+    <ListView
+        android:id="@+id/listitem_list"
+        android:layout_below="@+id/TitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        />
+</RelativeLayout>
