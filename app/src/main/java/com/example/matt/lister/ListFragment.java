@@ -2,6 +2,7 @@ package com.example.matt.lister;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     public static ListFragment newInstance(ListItem theListItem) {
@@ -38,13 +38,14 @@ public class ListFragment extends Fragment {
         Vector<String> displayMainList=  new Vector<String>();
         TextView titleText;
         ListItem theListItem= (ListItem) getArguments().getSerializable("UriPlaceholder");
-
+        Log.d("0", "MMMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         listName= theListItem.getItemTitle();
+        displayMainList.add(0, theListItem.getItemDetails());
         mListAdapter =
                 new ListFragmentAdapter(
                         getActivity(), // The current context (this activity)
-                        R.layout.main_list_item, // The name of the layout ID.
-                        R.id.ItemTitle, // The ID of the textview to populate.
+                        R.layout.list_item, // The name of the layout ID.
+                        R.id.ListItem, // The ID of the textview to populate.
                         displayMainList);
 
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
