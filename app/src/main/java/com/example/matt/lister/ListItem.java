@@ -10,6 +10,7 @@ public class ListItem implements Serializable {
     private String ItemTitle;
     private String ItemDetails;
     private Vector<String> ItemDetailsVector=  new Vector<String>();
+    private Integer LineNumber;
     private String[] ItemDetailLines=new String[5];
         public ListItem(){
             ItemTitle="";
@@ -54,8 +55,8 @@ public class ListItem implements Serializable {
         public String getItemDetails(){
             return ItemDetails;
         }
-
-    public Vector<String>  getItemDetailsVector(){
+        public Integer getLineNumber(){return LineNumber;}
+        public Vector<String>  getItemDetailsVector(){
         return ItemDetailsVector;
     }
         public String getItemDetailLine(int index)

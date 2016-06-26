@@ -38,7 +38,6 @@ public class ListFragment extends Fragment {
         Vector<String> displayMainList=  new Vector<String>();
         TextView titleText;
         ListItem theListItem= (ListItem) getArguments().getSerializable("UriPlaceholder");
-        Log.d("0", "MMMOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         listName= theListItem.getItemTitle();
         displayMainList.add(0, theListItem.getItemDetails());
         mListAdapter =
