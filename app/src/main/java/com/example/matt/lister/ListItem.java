@@ -39,13 +39,13 @@ public class ListItem implements Serializable {
         public void setItemDetails(String pItemDetails){
             ItemDetails=pItemDetails;
             String[] parts= pItemDetails.split("\\r?\\n");
-            for(int i=0;i<5;i++){
-                if (i<(parts.length)){
+            for(int i=0;i<5;i++) {
+                ItemDetailLines[i] = "";
+            }
+            for(int i=0;i<parts.length;i++){
+                ItemDetailsVector.add(parts[i]);
+                if (i<5){
                     ItemDetailLines[i]=parts[i];
-                    ItemDetailsVector.add(parts[i]);
-                }
-                else{
-                    ItemDetailLines[i]="";
                 }
             }
         }
