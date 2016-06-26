@@ -10,7 +10,7 @@ public class ListItem implements Serializable {
     private String ItemTitle;
     private String ItemDetails;
     private Vector<String> ItemDetailsVector=  new Vector<String>();
-    private Integer LineNumber;
+    private Integer LineNumber=0;
     private String[] ItemDetailLines=new String[5];
         public ListItem(){
             ItemTitle="";
@@ -37,6 +37,7 @@ public class ListItem implements Serializable {
             ItemTitle=pItemTitle;
         }
         public void setItemDetails(String pItemDetails){
+            LineNumber=0;
             ItemDetails=pItemDetails;
             String[] parts= pItemDetails.split("\\r?\\n");
             for(int i=0;i<5;i++) {
@@ -44,6 +45,7 @@ public class ListItem implements Serializable {
             }
             for(int i=0;i<parts.length;i++){
                 ItemDetailsVector.add(parts[i]);
+                LineNumber++;
                 if (i<5){
                     ItemDetailLines[i]=parts[i];
                 }

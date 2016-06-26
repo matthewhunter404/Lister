@@ -35,11 +35,11 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         String listName;
         //String[] displayMainList= new String[6];
-        Vector<String> displayMainList=  new Vector<String>();
         TextView titleText;
         ListItem theListItem= (ListItem) getArguments().getSerializable("UriPlaceholder");
+        Vector<String> displayMainList=  theListItem.getItemDetailsVector();
         listName= theListItem.getItemTitle();
-        displayMainList.add(0, theListItem.getItemDetails());
+        //displayMainList.add(0, theListItem.getItemDetails());
         mListAdapter =
                 new ListFragmentAdapter(
                         getActivity(), // The current context (this activity)
