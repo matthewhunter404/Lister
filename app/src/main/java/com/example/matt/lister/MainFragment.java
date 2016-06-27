@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
         return rootView;
     }
     public void setData(String[] pTitles, String[] pDetails) {
-        for(int i=0;i<5;i++) {
+        for(int i=0;i<displaySize;i++) {
             Log.d("moo",Integer.toString(i));
             displayMainList[i]=new ListItem();
             displayMainList[i].setItemTitle(pTitles[i]);
