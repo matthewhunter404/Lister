@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,12 +77,12 @@ public class ListFragment extends Fragment {
                 input.setTextColor(Color.parseColor("#646464"));
                 alert.setView(input);
                 input.setText(mDisplayMainList.get(position));
-                final int passedPosition=position;
+                final int passedPosition = position;
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int pPosition) {
 
                         mDisplayMainList.set(passedPosition, input.getText().toString());
-                        ((BaseAdapter)mListView.getAdapter()).notifyDataSetChanged();
+                        ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
                     }
                 });
 
@@ -94,8 +96,35 @@ public class ListFragment extends Fragment {
             }
         });
 
+        //Code for the add list item option as a floating Action Button. This should maybe reuse code from edit popup window, but the key difference is mDisplayMainList.set vs mDisplayMainList.add which is at the centre of the method
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                alert.setTitle("Title");
+                alert.setMessage("Message");
+                // Set an EditText view to get user input
+                final EditText input = new EditText(mContext);
+                input.setTextColor(Color.parseColor("#646464"));
+                alert.setView(input);
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int pPosition) {
 
+                        mDisplayMainList.add(mDisplayMainList.size(), input.getText().toString());
+                        ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
+                    }
+                });
 
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+                alert.show();
+            }
+        });
 
         return rootView;
     }
