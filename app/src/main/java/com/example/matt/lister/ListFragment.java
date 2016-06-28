@@ -79,7 +79,7 @@ public class ListFragment extends Fragment {
                 alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int pPosition) {
 
-                        mDisplayMainList.add(passedPosition, input.getText().toString());
+                        mDisplayMainList.set(passedPosition, input.getText().toString());
                         ((BaseAdapter)mListView.getAdapter()).notifyDataSetChanged();
                     }
                 });
