@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +27,7 @@ import java.util.Vector;
  */
 public class ListFragment extends Fragment {
     private ListFragmentAdapter mListAdapter;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     private Context mContext;
     private ArrayList<String> mDisplayMainList;
 
@@ -63,13 +64,13 @@ public class ListFragment extends Fragment {
                         mDisplayMainList);
 
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
-        mListView = (ListView) rootView.findViewById(R.id.listitem_list);
-        mListView.setAdapter(mListAdapter);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.listitem_recycler);
+        mRecyclerView.setAdapter(mListAdapter);
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
 
         //Code for a popup window to edit the text when a list item is selected
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
@@ -86,7 +87,7 @@ public class ListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int pPosition) {
 
                         mDisplayMainList.set(passedPosition, input.getText().toString());
-                        ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
+                        ((BaseAdapter) mRecyclerView.getAdapter()).notifyDataSetChanged();
                     }
                 });
 
@@ -116,7 +117,7 @@ public class ListFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int pPosition) {
 
                         mDisplayMainList.add(mDisplayMainList.size(), input.getText().toString());
-                        ((BaseAdapter) mListView.getAdapter()).notifyDataSetChanged();
+                        ((BaseAdapter) mRecyclerView.getAdapter()).notifyDataSetChanged();
                     }
                 });
 

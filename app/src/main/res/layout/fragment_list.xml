@@ -21,8 +21,8 @@
         android:textColor="@color/grey_700"
         android:textSize="24sp"
     />
-    <ListView
-        android:id="@+id/listitem_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listitem_recycler"
         android:layout_below="@+id/TitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
