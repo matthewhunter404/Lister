@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -27,7 +28,10 @@ public class ListFragment extends Fragment {
     private ListFragmentAdapter mListAdapter;
     private ListView mListView;
     private Context mContext;
-    private Vector<String> mDisplayMainList;
+    private ArrayList<String> mDisplayMainList;
+
+    //Quick note on vector vs arraylist
+    //Performance: ArrayList gives better performance as it is non-synchronized. Vector operations gives poor performance as they are thread-safe, the thread which works on Vector gets a lock on it which makes other thread wait till the lock is released.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +52,7 @@ public class ListFragment extends Fragment {
         //String[] displayMainList= new String[6];
         TextView titleText;
         ListItem theListItem= (ListItem) getArguments().getSerializable("UriPlaceholder");
-        mDisplayMainList=  theListItem.getItemDetailsVector();
+        mDisplayMainList=  theListItem.getItemDetailsArray();
         listName= theListItem.getItemTitle();
         //displayMainList.add(0, theListItem.getItemDetails());
         mListAdapter =
@@ -61,7 +65,7 @@ public class ListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
         mListView = (ListView) rootView.findViewById(R.id.listitem_list);
         mListView.setAdapter(mListAdapter);
-        titleText= (TextView) rootView.findViewById(R.id.TitleText);
+        titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
 
         //Code for a popup window to edit the text when a list item is selected

@@ -1,6 +1,7 @@
 package com.example.matt.lister;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Vector;
 public class ListItem implements Serializable {
     private String ItemTitle;
     private String ItemDetails;
-    private Vector<String> ItemDetailsVector=  new Vector<String>();
+    private ArrayList<String> ItemDetailsArray=  new ArrayList();;
     private Integer LineNumber=0;
     private String[] ItemDetailLines=new String[5];
         public ListItem(){
@@ -44,7 +45,7 @@ public class ListItem implements Serializable {
                 ItemDetailLines[i] = "";
             }
             for(int i=0;i<parts.length;i++){
-                ItemDetailsVector.add(parts[i]);
+                ItemDetailsArray.add(parts[i]);
                 LineNumber++;
                 if (i<5){
                     ItemDetailLines[i]=parts[i];
@@ -58,11 +59,11 @@ public class ListItem implements Serializable {
             return ItemDetails;
         }
         public Integer getLineNumber(){return LineNumber;}
-        public Vector<String>  getItemDetailsVector(){
-        return ItemDetailsVector;
-    }
+        public ArrayList  getItemDetailsArray(){
+        return ItemDetailsArray;
+        }
         public String getItemDetailLine(int index)
         {
             return ItemDetailLines[index];
         }
-    }
+        }

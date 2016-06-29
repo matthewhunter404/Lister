@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -18,9 +19,9 @@ public class ListFragmentAdapter extends ArrayAdapter<String> {
 
         Context context;
         int layoutResourceId;
-        Vector<String> data = new Vector<String>();
+        ArrayList<String> data = new ArrayList();
 
-        public ListFragmentAdapter(Context context, int layoutResourceId, int textlayoutResourceId, Vector<String> data) {
+        public ListFragmentAdapter(Context context, int layoutResourceId, int textlayoutResourceId, ArrayList data) {
             super(context, layoutResourceId,textlayoutResourceId, data);
             this.layoutResourceId = layoutResourceId;
             this.context = context;
