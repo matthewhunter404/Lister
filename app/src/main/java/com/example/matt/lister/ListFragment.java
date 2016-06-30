@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -65,6 +66,12 @@ public class ListFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.listitem_recycler);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(mContext);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(llm);
+
+
         mRecyclerView.setAdapter(mListAdapter);
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
