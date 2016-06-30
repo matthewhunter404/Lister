@@ -27,8 +27,9 @@ import java.util.Vector;
  * Created by matt on 2016/06/10.
  */
 public class ListFragment extends Fragment {
-    private ListFragmentAdapter mListAdapter;
+    private RecyclerView.Adapter mListAdapter;
     private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
     private Context mContext;
     private ArrayList<String> mDisplayMainList;
 
@@ -57,27 +58,31 @@ public class ListFragment extends Fragment {
         mDisplayMainList=  theListItem.getItemDetailsArray();
         listName= theListItem.getItemTitle();
         //displayMainList.add(0, theListItem.getItemDetails());
-        mListAdapter =
-                new ListFragmentAdapter(
-                        getActivity(), // The current context (this activity)
-                        R.layout.list_item, // The name of the layout ID.
-                        R.id.ListItem, // The ID of the textview to populate.
-                        mDisplayMainList);
+//        mListAdapter =
+//                new ListFragmentAdapter(
+//                        getActivity(), // The current context (this activity)
+//                        R.layout.list_item, // The name of the layout ID.
+//                        R.id.ListItem, // The ID of the textview to populate.
+//                        mDisplayMainList);
 
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.listitem_recycler);
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(mContext);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(llm);
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);// use a linear layout manager
 
 
+        mLayoutManager = new LinearLayoutManager(mContext);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mListAdapter = new ListFragmentAdapter(mDisplayMainList);
         mRecyclerView.setAdapter(mListAdapter);
+
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
 
         //Code for a popup window to edit the text when a list item is selected
-        mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mRecyclerView.OnItemTouchListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
@@ -137,6 +142,61 @@ public class ListFragment extends Fragment {
                 alert.show();
             }
         });
+
+
+
+
+        public interface ClickListener {
+            void onClick(View view, int position);
+
+            void onLongClick(View view, int position);
+        }
+
+        public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+            private GestureDetector gestureDetector;
+            private MainActivity.ClickListener clickListener;
+
+            public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final MainActivity.ClickListener clickListener) {
+                this.clickListener = clickListener;
+                gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        return true;
+                    }
+
+                    @Override
+                    public void onLongPress(MotionEvent e) {
+                        View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                        if (child != null && clickListener != null) {
+                            clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+                View child = rv.findChildViewUnder(e.getX(), e.getY());
+                if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                    clickListener.onClick(child, rv.getChildPosition(child));
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        }
+
+
+
 
         return rootView;
     }
