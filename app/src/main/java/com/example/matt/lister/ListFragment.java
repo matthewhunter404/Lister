@@ -82,6 +82,9 @@ public class ListFragment extends Fragment {
         titleText.setText(listName);
 
         //Code for a popup window to edit the text when a list item is selected
+        public void onItemClick(mListAdapter, View view, int position,long id) {
+            // handle item click
+        }
         mRecyclerView.OnItemTouchListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

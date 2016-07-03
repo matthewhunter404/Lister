@@ -18,20 +18,9 @@ import java.util.Vector;
  * Created by matt on 2016/06/07.
  */
 
-public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapter.ViewHolder> {
+public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
     ArrayList<String> mDataset= new ArrayList();
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(View v) {
-            super(v);
-            mTextView = (TextView)itemView.findViewById(R.id.ListItem);
 
-        }
-    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ListFragmentAdapter(ArrayList myDataset) {
@@ -40,22 +29,21 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ListFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
+        ListViewHolder vh = new ListViewHolder(v, new ListViewHolder.IMyViewHolderClicks());
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ListViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position));
+        holder.vListItem.setText(mDataset.get(position));
 
     }
 
@@ -111,3 +99,15 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
 
 
+//// Provide a reference to the views for each data item
+//// Complex data items may need more than one view per item, and
+//// you provide access to all the views for a data item in a view holder
+//public static class ViewHolder extends RecyclerView.ViewHolder {
+//    // each data item is just a string in this case
+//    public TextView mTextView;
+//    public ViewHolder(View v) {
+//        super(v);
+//        mTextView = (TextView)itemView.findViewById(R.id.ListItem);
+//
+//    }
+//}
