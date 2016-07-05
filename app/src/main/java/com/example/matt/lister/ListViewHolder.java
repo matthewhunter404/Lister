@@ -12,11 +12,9 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         //protected TextView vSurname;
         //protected TextView vEmail;
         protected TextView vListItem;
-        public IMyViewHolderClicks mListener;
 
-        public ListViewHolder(View v, IMyViewHolderClicks listener) {
+        public ListViewHolder(View v) {
             super(v);
-            mListener = listener;
             //vName =  (TextView) v.findViewById(R.id.txtName);
             //vSurname = (TextView)  v.findViewById(R.id.txtSurname);
             //vEmail = (TextView)  v.findViewById(R.id.txtEmail);
@@ -26,16 +24,8 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         }
     @Override
     public void onClick(View v) {
-        if (v instanceof TextView){
-            mListener.onTextView((TextView)v);
-        } else {
-            mListener.onView(v);
-        }
+
     }
 
-    public static interface IMyViewHolderClicks {
-        public void onView(View caller);
-        public void onTextView(TextView callerText);
-    }
     }
 

@@ -34,7 +34,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
-        ListViewHolder vh = new ListViewHolder(v, new ListViewHolder.IMyViewHolderClicks());
+        ListViewHolder vh = new ListViewHolder(v);
         return vh;
     }
 
