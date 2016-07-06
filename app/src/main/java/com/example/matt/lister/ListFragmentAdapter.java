@@ -27,6 +27,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
         mDataset = myDataset;
     }
 
+    //private final View.OnClickListener mOnClickListener = new MyOnClickListener();
     // Create new views (invoked by the layout manager)
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
@@ -35,8 +36,12 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
         // set the view's size, margins, paddings and layout parameters
         ListViewHolder vh = new ListViewHolder(parent.getContext(),v);
+
+        //set the onlick
+        //v.setOnClickListener(mOnClickListener);
         return vh;
     }
+
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
@@ -52,6 +57,9 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
     public int getItemCount() {
         return mDataset.size();
     }
+
+
+
 }
 
 //public class ListFragmentAdapter extends ArrayAdapter<String> {

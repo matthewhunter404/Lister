@@ -30,6 +30,8 @@ public class ListFragment extends Fragment {
     private RecyclerView.Adapter mListAdapter;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private AdapterView.OnItemClickListener mOnItemClickListener;
+    private AdapterView.OnItemLongClickListener mOnItemLongClickListener;
     private Context mContext;
     private ArrayList<String> mDisplayMainList;
 
@@ -78,6 +80,40 @@ public class ListFragment extends Fragment {
         mListAdapter = new ListFragmentAdapter(mDisplayMainList);
         mRecyclerView.setAdapter(mListAdapter);
 
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(mContext);
+                        alert.setTitle("Title");
+                        alert.setMessage("Message");
+
+                        // Set an EditText view to get user input
+                        final EditText input = new EditText(mContext);
+                        input.setTextColor(Color.parseColor("#646464"));
+                        alert.setView(input);
+                        input.setText(mDisplayMainList.get(position));
+                        final int passedPosition = position;
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int pPosition) {
+
+                                mDisplayMainList.set(passedPosition, input.getText().toString());
+                                mListAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                // Canceled.
+                            }
+                        });
+
+                        alert.show();
+
+                    }
+                }));
+
+
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
 
@@ -111,8 +147,12 @@ public class ListFragment extends Fragment {
             }
         });
 
+
+
+
         return rootView;
     }
+
 }
 
 
