@@ -90,7 +90,7 @@ public class ListFragment extends Fragment {
 
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
-        
+
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +160,12 @@ public class ListFragment extends Fragment {
 
         alert.show();
 
+    }
+
+    public void DeleteLine(int passedPosition)
+    {
+        mDisplayMainList.remove(passedPosition);
+        mListAdapter.notifyDataSetChanged();
     }
 }
 
