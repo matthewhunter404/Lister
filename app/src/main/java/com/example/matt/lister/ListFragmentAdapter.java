@@ -23,7 +23,7 @@ import java.util.Vector;
 
 public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
     ArrayList<String> mDataset= new ArrayList();
-    List<String> itemsPendingRemoval;
+    List<String> itemsPendingRemoval= new ArrayList<>();
     boolean undoOn; // is undo on, you can turn it on from the toolbar menu
     private Handler handler = new Handler(); // hanlder for running delayed runnables
     HashMap<String, Runnable> pendingRunnables = new HashMap<>(); // map of items to pending runnables, so we can cancel a removal if need be
