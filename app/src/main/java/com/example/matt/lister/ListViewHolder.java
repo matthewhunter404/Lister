@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         //protected TextView vSurname;
         //protected TextView vEmail;
         protected TextView vListItem;
+        Button undoButton;
         private Context mContext;
 
         public ListViewHolder(Context c,View v) {
@@ -28,6 +30,7 @@ public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             //vEmail = (TextView)  v.findViewById(R.id.txtEmail);
             mContext=c;
             vListItem = (TextView) v.findViewById(R.id.ListItem);
+            undoButton = (Button) itemView.findViewById(R.id.undo_button);
             vListItem.setOnClickListener(this);
             v.setOnClickListener(this);
         }
