@@ -84,40 +84,13 @@ public class ListFragment extends Fragment {
                 new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(mContext);
-                        alert.setTitle("Title");
-                        alert.setMessage("Message");
-
-                        // Set an EditText view to get user input
-                        final EditText input = new EditText(mContext);
-                        input.setTextColor(Color.parseColor("#646464"));
-                        alert.setView(input);
-                        input.setText(mDisplayMainList.get(position));
-                        final int passedPosition = position;
-                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int pPosition) {
-
-                                mDisplayMainList.set(passedPosition, input.getText().toString());
-                                mListAdapter.notifyDataSetChanged();
-                            }
-                        });
-
-                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                // Canceled.
-                            }
-                        });
-
-                        alert.show();
-
+                        EditLine(position);
                     }
                 }));
 
-
         titleText = (TextView) rootView.findViewById(R.id.TitleText);
         titleText.setText(listName);
-
-
+        
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +132,35 @@ public class ListFragment extends Fragment {
 
     }
 
+    public void EditLine(int position)
+    {
+        android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(mContext);
+        alert.setTitle("Title");
+        alert.setMessage("Message");
 
+        // Set an EditText view to get user input
+        final EditText input = new EditText(mContext);
+        input.setTextColor(Color.parseColor("#646464"));
+        alert.setView(input);
+        input.setText(mDisplayMainList.get(position));
+        final int passedPosition = position;
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int pPosition) {
+
+                mDisplayMainList.set(passedPosition, input.getText().toString());
+                mListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Canceled.
+            }
+        });
+
+        alert.show();
+
+    }
 }
 
 
