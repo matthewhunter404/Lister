@@ -2,6 +2,8 @@ package com.example.matt.lister;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,7 +23,11 @@ import java.util.Vector;
 
 public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
     ArrayList<String> mDataset= new ArrayList();
-
+    List<String> itemsPendingRemoval;
+    boolean undoOn; // is undo on, you can turn it on from the toolbar menu
+    private Handler handler = new Handler(); // hanlder for running delayed runnables
+    HashMap<String, Runnable> pendingRunnables = new HashMap<>(); // map of items to pending runnables, so we can cancel a removal if need be
+    private static final int PENDING_REMOVAL_TIMEOUT = 3000; // 3sec
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ListFragmentAdapter(ArrayList myDataset) {
@@ -37,7 +44,6 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
         // set the view's size, margins, paddings and layout parameters
         ListViewHolder vh = new ListViewHolder(parent.getContext(),v);
 
-        //set the onlick
         //v.setOnClickListener(mOnClickListener);
         return vh;
     }
@@ -46,9 +52,37 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ListViewHolder holder, int position) {
+        ListViewHolder viewHolder = (ListViewHolder)holder;
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.vListItem.setText(mDataset.get(position));
+        final String item=mDataset.get(position);
+
+        if (itemsPendingRemoval.contains(item)) {
+            // we need to show the "undo" state of the row
+            viewHolder.itemView.setBackgroundColor(Color.RED);
+            viewHolder.vListItem.setVisibility(View.GONE);
+            viewHolder.undoButton.setVisibility(View.VISIBLE);
+            viewHolder.undoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // user wants to undo the removal, let's cancel the pending task
+                    Runnable pendingRemovalRunnable = pendingRunnables.get(item);
+                    pendingRunnables.remove(item);
+                    if (pendingRemovalRunnable != null) handler.removeCallbacks(pendingRemovalRunnable);
+                    itemsPendingRemoval.remove(item);
+                    // this will rebind the row in "normal" state
+                    notifyItemChanged(mDataset.indexOf(item));
+                }
+            });
+        } else {
+            // we need to show the "normal" state
+            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+            viewHolder.vListItem.setVisibility(View.VISIBLE);
+            viewHolder.vListItem.setText(item);
+            viewHolder.undoButton.setVisibility(View.GONE);
+            viewHolder.undoButton.setOnClickListener(null);
+        }
 
     }
 
@@ -58,8 +92,48 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
         return mDataset.size();
     }
 
+    public void setUndoOn(boolean undoOn) {
+        this.undoOn = undoOn;
+    }
 
+    public boolean isUndoOn() {
+        return undoOn;
+    }
 
+    public void pendingRemoval(int position) {
+        final String item = mDataset.get(position);
+        if (!itemsPendingRemoval.contains(item)) {
+            itemsPendingRemoval.add(item);
+            // this will redraw row in "undo" state
+            notifyItemChanged(position);
+            // let's create, store and post a runnable to remove the item
+            Runnable pendingRemovalRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    remove(mDataset.indexOf(item));
+                }
+            };
+            handler.postDelayed(pendingRemovalRunnable, PENDING_REMOVAL_TIMEOUT);
+            pendingRunnables.put(item, pendingRemovalRunnable);
+        }
+    }
+
+    //Simple remove method to remove the line item stored at the passed position
+    public void remove(int position) {
+        String item = mDataset.get(position);
+        if (itemsPendingRemoval.contains(item)) {
+            itemsPendingRemoval.remove(item);
+        }
+        if (mDataset.contains(item)) {
+            mDataset.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public boolean isPendingRemoval(int position) {
+        String item = mDataset.get(position);
+        return itemsPendingRemoval.contains(item);
+    }
 }
 
 //public class ListFragmentAdapter extends ArrayAdapter<String> {
