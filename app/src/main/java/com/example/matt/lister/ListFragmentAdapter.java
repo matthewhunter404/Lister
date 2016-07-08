@@ -60,7 +60,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListViewHolder> {
 
         if (itemsPendingRemoval.contains(item)) {
             // we need to show the "undo" state of the row
-            viewHolder.itemView.setBackgroundColor(Color.RED);
+            viewHolder.itemView.setBackgroundColor(Color.BLUE);
             viewHolder.vListItem.setVisibility(View.GONE);
             viewHolder.undoButton.setVisibility(View.VISIBLE);
             viewHolder.undoButton.setOnClickListener(new View.OnClickListener() {

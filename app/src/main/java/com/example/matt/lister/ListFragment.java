@@ -91,7 +91,7 @@ public class ListFragment extends Fragment {
         mRecyclerView.setAdapter(mListAdapter);
 
         setUpItemTouchHelper();
-        setUpAnimationDecoratorHelper();
+        //setUpAnimationDecoratorHelper();
         ((ListFragmentAdapter)mRecyclerView.getAdapter()).setUndoOn(true); //Hard codes the undo option to true. This could be a user option later.
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
@@ -218,7 +218,7 @@ public class ListFragment extends Fragment {
             int xMarkMargin;
             boolean initiated;
             private void init() {
-                background = new ColorDrawable(Color.RED);
+                background = new ColorDrawable(Color.BLUE);
                 xMark = ContextCompat.getDrawable(mContext, R.drawable.ic_clear_24dp);
                 xMark.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                 xMarkMargin = (int) ListFragment.this.getResources().getDimension(R.dimen.ic_clear_margin);
@@ -292,7 +292,7 @@ public class ListFragment extends Fragment {
     }
 
     /**
-     * We're gonna setup another ItemDecorator that will draw the red background in the empty space while the items are animating to thier new positions
+     * We're gonna setup another ItemDecorator that will draw the red background in the empty space while the items are animating to their new positions
      * after an item is removed.
      */
     private void setUpAnimationDecoratorHelper() {
@@ -301,7 +301,7 @@ public class ListFragment extends Fragment {
             Drawable background;
             boolean initiated;
             private void init() {
-                background = new ColorDrawable(Color.RED);
+                background = new ColorDrawable(Color.BLUE);
                 initiated = true;
             }
             @Override
@@ -350,16 +350,18 @@ public class ListFragment extends Fragment {
                         bottom = firstViewComingUp.getTop() + (int) firstViewComingUp.getTranslationY();
                     } else if (lastViewComingDown != null) {
                         // views are going down to fill the void
-                        top = lastViewComingDown.getBottom() + (int) lastViewComingDown.getTranslationY();
+                        //top = lastViewComingDown.getBottom() + (int) lastViewComingDown.getTranslationY();
+                        top = lastViewComingDown.getBottom();
                         bottom = lastViewComingDown.getBottom();
                     } else if (firstViewComingUp != null) {
                         // views are coming up to fill the void
                         top = firstViewComingUp.getTop();
-                        bottom = firstViewComingUp.getTop() + (int) firstViewComingUp.getTranslationY();
+                        bottom = firstViewComingUp.getTop();
+                        //bottom = firstViewComingUp.getTop() + (int) firstViewComingUp.getTranslationY();
                     }
 
                     background.setBounds(left, top, right, bottom);
-                    background.draw(c);
+                    //background.draw(c);
                 }
                 super.onDraw(c, parent, state);
             }
