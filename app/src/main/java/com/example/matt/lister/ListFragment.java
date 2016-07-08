@@ -97,7 +97,10 @@ public class ListFragment extends Fragment {
                 new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        EditLine(position);
+                        //Only call the line edit if the line hasn'talready been deleted and is simply waiting for the delete to finish animating
+                        if (((ListFragmentAdapter)mRecyclerView.getAdapter()).isPendingRemoval(position)==false) {
+                            EditLine(position);
+                        }
                     }
                 }));
 
