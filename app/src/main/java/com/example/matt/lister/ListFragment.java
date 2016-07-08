@@ -92,7 +92,7 @@ public class ListFragment extends Fragment {
 
         setUpItemTouchHelper();
         setUpAnimationDecoratorHelper();
-
+        ((ListFragmentAdapter)mRecyclerView.getAdapter()).setUndoOn(true); //Hard codes the undo option to true. This could be a user option later.
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(mContext, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -181,19 +181,19 @@ public class ListFragment extends Fragment {
         mListAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_fragment_list, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_item_undo_checkbox) {
-            item.setChecked(!item.isChecked());
-            ((ListFragmentAdapter)mRecyclerView.getAdapter()).setUndoOn(item.isChecked());
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.menu_fragment_list, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (item.getItemId() == R.id.menu_item_undo_checkbox) {
+//            item.setChecked(!item.isChecked());
+//            ((ListFragmentAdapter)mRecyclerView.getAdapter()).setUndoOn(item.isChecked());
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
     private void setUpRecyclerView() {
         //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         //mRecyclerView.setAdapter(new ListFragmentAdapter());
