@@ -162,8 +162,13 @@ public class ListFragment extends Fragment {
         final int passedPosition = position;
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int pPosition) {
-
-                mDisplayMainList.set(passedPosition, input.getText().toString());
+                if (input.getText().toString()=="") {
+                    DeleteLine(PassedPosition);
+                }
+                else
+                {
+                    mDisplayMainList.set(passedPosition, input.getText().toString());
+                }
                 mListAdapter.notifyDataSetChanged();
             }
         });
@@ -287,6 +292,19 @@ public class ListFragment extends Fragment {
             }
 
         };
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback2 = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                int swipedPosition = viewHolder.getAdapterPosition();
+                ListFragmentAdapter adapter = (ListFragmentAdapter)mRecyclerView.getAdapter();
+                    adapter.remove(swipedPosition);
+
+                }
+            };
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
