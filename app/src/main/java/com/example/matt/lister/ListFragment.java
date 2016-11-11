@@ -162,8 +162,8 @@ public class ListFragment extends Fragment {
         final int passedPosition = position;
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int pPosition) {
-                if (input.getText().toString()=="") {
-                    DeleteLine(PassedPosition);
+                if (input.getText().toString().equals("")) {
+                    DeleteLine(passedPosition);
                 }
                 else
                 {
