@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListerMain extends AppCompatActivity implements MainFragment.OnListSelectedListener {
+    //ListerMain is the main activity of the app, from which the other fragments are created.
+
     FragmentManager mfragmentManager = getFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,23 +82,24 @@ public class ListerMain extends AppCompatActivity implements MainFragment.OnList
 
         return super.onOptionsItemSelected(item);
     }
-    // implementation of MyFragment.Listener interface
 
-    public void onListSelected(ListItem UriPlaceholder) {
-        //ListFragment newFragment = new ListFragment();
-        Fragment newFragment = ListFragment.newInstance(UriPlaceholder);
+    public void onListSelected(ListItem selectedList) {
+        //OnListSelected is a callback function called when a user selects a list in ListFragment.
+        //This means that a new fragment needs to be created where the user can view the list in more detail
+        //This new fragment needs to be created by the main activity as fragments can't create other fragments
+        //TODO look at replacing with a full Uri
+        Fragment newFragment = ListFragment.newInstance(selectedList);
         Bundle bundle = new Bundle();
-        //bundle.putString("UriPlaceholder", UriPlaceholder);
-        bundle.putSerializable("UriPlaceholder", UriPlaceholder);
+        bundle.putSerializable("UriPlaceholder", selectedList);
         newFragment.setArguments(bundle);
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        FragmentTransaction fragmentTransaction2 = mfragmentManager.beginTransaction();
-        fragmentTransaction2.replace(R.id.fragment_container, newFragment);
-        fragmentTransaction2.addToBackStack(null);
+        FragmentTransaction newFragmentTransaction = mfragmentManager.beginTransaction();
+        newFragmentTransaction.replace(R.id.fragment_container, newFragment);
+        newFragmentTransaction.addToBackStack(null);
 
         // Commit the transaction
-        fragmentTransaction2.commit();
+        newFragmentTransaction.commit();
 
     }
 //This overrides the back button functionality on android that normally ignores fragments
