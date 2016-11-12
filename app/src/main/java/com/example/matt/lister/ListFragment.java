@@ -52,7 +52,7 @@ public class ListFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    public static ListFragment newInstance(ListItem theListItem) {
+    public static ListFragment newInstance(ListerList theListItem) {
         ListFragment fragment = new ListFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("UriPlaceholder", theListItem);
@@ -66,16 +66,10 @@ public class ListFragment extends Fragment {
         mContext=this.getActivity();
         //String[] displayMainList= new String[6];
         TextView titleText;
-        ListItem theListItem= (ListItem) getArguments().getSerializable("UriPlaceholder");
-        mDisplayMainList=  theListItem.getItemDetailsArray();
-        listName= theListItem.getItemTitle();
-        //displayMainList.add(0, theListItem.getItemDetails());
-//        mListAdapter =
-//                new ListFragmentAdapter(
-//                        getActivity(), // The current context (this activity)
-//                        R.layout.list_item, // The name of the layout ID.
-//                        R.id.ListItem, // The ID of the textview to populate.
-//                        mDisplayMainList);
+        ListerList theListItem= (ListerList) getArguments().getSerializable("UriPlaceholder");
+        mDisplayMainList=  theListItem.getListDetailsArray();
+        listName= theListItem.getListTitle();
+
 
         View rootView = inflater.inflate(R.layout.fragment_list,container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.listitem_recycler);

@@ -83,7 +83,7 @@ public class ListerMain extends AppCompatActivity implements MainFragment.OnList
         return super.onOptionsItemSelected(item);
     }
 
-    public void onListSelected(ListItem selectedList) {
+    public void onListSelected(ListerList selectedList) {
         //OnListSelected is a callback function called when a user selects a list in ListFragment.
         //This means that a new fragment needs to be created where the user can view the list in more detail
         //This new fragment needs to be created by the main activity as fragments can't create other fragments

@@ -18,23 +18,26 @@ public final class ListerDictContract {
     }
 
     /* Inner class that defines the table contents */
-    public static abstract class ListEntry implements BaseColumns {
+
+    //UserLists provides the commands needed to set up the base table which contains the lists
+    public static abstract class UserLists implements BaseColumns {
         public static final String TABLE_NAME = "userlists";
         public static final String COLUMN_NAME_LISTNAME = "List Name";
-        public static final String CREATE_ENTRIES =
+        public static final String CREATE_TABLE =
                         "CREATE TABLE " + TABLE_NAME + " (" + _ID +
                         " INTEGER PRIMARY KEY," + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_LISTNAME + " )";
-        public static final String DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ListEntry.TABLE_NAME;
+        public static final String DELETE_ENTRIES = "DROP TABLE IF EXISTS " + UserLists.TABLE_NAME;
     }
-    public static abstract class ItemsEntry implements BaseColumns {
+    //List provides the commands needed to set up the table which contains each individual list item
+    public static abstract class List implements BaseColumns {
         public static final String TABLE_NAME = "listItems"; //But this will change? This contract class idea has some flaws. And is making things unneccesarily complicated
         public static final String COLUMN_NAME_ITEMS = "Items";
         public static final String CREATE_ENTRIES =
                 "CREATE TABLE " + TABLE_NAME + " (" + _ID +
                         " INTEGER PRIMARY KEY," + TEXT_TYPE + COMMA_SEP +
                         COLUMN_NAME_ITEMS + " )";
-        public static final String DELETE_ENTRIES = "DROP TABLE IF EXISTS " + ItemsEntry.TABLE_NAME;
+        public static final String DELETE_ENTRIES = "DROP TABLE IF EXISTS " + List.TABLE_NAME;
     }
 }
 

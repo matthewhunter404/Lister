@@ -22,7 +22,7 @@ public class MainFragment extends Fragment {
 
     private ListView mListView;
     final int displaySize=5;
-    ListItem displayMainList[]= new ListItem[displaySize];
+    ListerList displayMainList[]= new ListerList[displaySize];
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,15 +68,16 @@ public class MainFragment extends Fragment {
     }
     public void setData(String[] pTitles, String[] pDetails) {
         for(int i=0;i<displaySize;i++) {
+            //TODO make this initialise the data in sql form
             Log.d("moo",Integer.toString(i));
-            displayMainList[i]=new ListItem();
-            displayMainList[i].setItemTitle(pTitles[i]);
-            displayMainList[i].setItemDetails(pDetails[i]);
+            displayMainList[i]=new ListerList();
+            displayMainList[i].setListTitle(pTitles[i]);
+            displayMainList[i].setListDetails(pDetails[i]);
         }
     }
 
     public interface OnListSelectedListener {
-        public void onListSelected(ListItem UriPlaceholder);
+        public void onListSelected(ListerList selectedList);
     }
 
     //Then the activity that hosts the fragment implements the OnArticleSelectedListener interface and overrides onArticleSelected()

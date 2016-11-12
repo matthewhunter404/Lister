@@ -12,13 +12,13 @@ import android.widget.TextView;
 /**
  * Created by matt on 2016/06/07.
  */
-public class MainListAdapter extends ArrayAdapter<ListItem> {
+public class MainListAdapter extends ArrayAdapter<ListerList> {
 
         Context context;
         int layoutResourceId;
-        ListItem data[] = null;
+        ListerList data[] = null;
 
-        public MainListAdapter(Context context, int layoutResourceId, int textlayoutResourceId,  ListItem[] data) {
+        public MainListAdapter(Context context, int layoutResourceId, int textlayoutResourceId,  ListerList[] data) {
             super(context, layoutResourceId,textlayoutResourceId, data);
             this.layoutResourceId = layoutResourceId;
             this.context = context;
@@ -43,16 +43,16 @@ public class MainListAdapter extends ArrayAdapter<ListItem> {
             }
             holder = new MainAdapterHolder();
             holder.Item_Title_textview = (TextView)row.findViewById(R.id.ItemTitle);
-            String titleText = data[position].getItemTitle();
+            String titleText = data[position].getListTitle();
             holder.Item_Title_textview.setText(titleText);
             holder.Item_Detail1_textview = (TextView)row.findViewById(R.id.ItemDetail1);
             holder.Item_Detail2_textview = (TextView)row.findViewById(R.id.ItemDetail2);
             holder.Item_Detail3_textview = (TextView)row.findViewById(R.id.ItemDetail3);
             holder.Item_Detail4_textview = (TextView)row.findViewById(R.id.ItemDetail4);
-            holder.Item_Detail1_textview.setText(data[position].getItemDetailLine(1));
-            holder.Item_Detail2_textview.setText(data[position].getItemDetailLine(2));
-            holder.Item_Detail3_textview.setText(data[position].getItemDetailLine(3));
-            holder.Item_Detail4_textview.setText(data[position].getItemDetailLine(4));
+            holder.Item_Detail1_textview.setText(data[position].getListDetailLine(1));
+            holder.Item_Detail2_textview.setText(data[position].getListDetailLine(2));
+            holder.Item_Detail3_textview.setText(data[position].getListDetailLine(3));
+            holder.Item_Detail4_textview.setText(data[position].getListDetailLine(4));
             return row;
         }
 
