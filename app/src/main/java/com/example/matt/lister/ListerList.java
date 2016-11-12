@@ -11,7 +11,7 @@ public class ListerList implements Serializable {
     //This is the basic object that stores all the data that makes up a list
     private String ListTitle; //The lists name
     private String ListDetails;
-    private ArrayList<String> ListDetailsArray=  new ArrayList();
+    private ArrayList<ListerListItem> ListDetailsArray=  new ArrayList();
     private Integer LineNumber=0;
     private String[] ListDetailLines=new String[5];
         public ListerList(){
@@ -46,7 +46,7 @@ public class ListerList implements Serializable {
                 ListDetailLines[i] = "";
             }
             for(int i=0;i<parts.length;i++){
-                ListDetailsArray.add(parts[i]);
+                ListDetailsArray.add(new ListerListItem(parts[i]));
                 LineNumber++;
                 if (i<5){
                     ListDetailLines[i]=parts[i];
